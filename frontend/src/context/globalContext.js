@@ -10,6 +10,7 @@ const GlobalContext = React.createContext()
 export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
+    const [savings, setSavings] = useState([])
     const [expenses, setExpenses] = useState([])
     const [error, setError] = useState(null)
 
@@ -62,6 +63,19 @@ export const GlobalProvider = ({children}) => {
         const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
     }
+    const addSaving = async (saving) => {
+        const response = await axios.post(`${BASE_URL}add-saving`, saving)
+            .catch((err) =>{
+                setError(err.response.data.message)
+            })
+        getSaving()
+    }
+
+    const getSaving = async () => {
+        const response = await axios.get(`${BASE_URL}get-saving`)
+        setSavings(response.data)
+        console.log(response.data)
+    }
 
     const totalExpenses = () => {
         let totalIncome = 0;
@@ -71,6 +85,15 @@ export const GlobalProvider = ({children}) => {
 
         return totalIncome;
     }
+    const totalSaving = () => {
+        let totalSaving = 0;
+        savings.forEach((saving) =>{
+            totalSaving = totalSaving + saving.amount
+        })
+
+        return totalSaving;
+    }
+
 
 
     const totalBalance = () => {
@@ -98,7 +121,10 @@ export const GlobalProvider = ({children}) => {
             addExpense,
             getExpenses,
             deleteExpense,
+            addSaving,
+            getSaving,
             totalExpenses,
+            totalSaving,
             totalBalance,
             transactionHistory,
             error,

@@ -7,7 +7,9 @@ import Navigation from './Components/Navigation/Navigation'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
+import Acorn from './Components/Acorn/Acorn'
 import { useGlobalContext } from './context/globalContext';
+import BotpressChat from './Components/BotpressChat';
 
 function App() {
   const [active, setActive] = useState(1)
@@ -25,6 +27,8 @@ function App() {
         return <Income />
       case 4: 
         return <Expenses />
+      case 5: 
+        return <Acorn />
       default: 
         return <Dashboard />
     }
@@ -43,6 +47,9 @@ function App() {
           {displayData()}
         </main>
       </MainLayout>
+      {/* <BotpressChat/>
+      <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+      <script src="https://mediafiles.botpress.cloud/efc0fc2d-02e1-4331-aa33-0d129a13a01a/webchat/config.js" defer></script> */}
     </AppStyled>
   );
 }
@@ -65,3 +72,11 @@ const AppStyled = styled.div`
 `;
 
 export default App;
+// import React from "react";
+// import Home from "./Components/Home";
+// function App(){
+//   return(
+//     <Home />
+//   );
+// }
+// export default App;
